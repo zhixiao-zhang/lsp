@@ -616,17 +616,22 @@ def ShowDiagInPopup(diag: dict<any>)
   var msglen = msg->reduce((acc, val) => max([acc, val->strcharlen()]), 0)
 
   var ppopts = {}
-  ppopts.pos = 'topleft'
-  ppopts.line = d.row + 1
+  ppopts.pos = 'topright'
+  ppopts.line = 1
   ppopts.moved = 'any'
 
-  if msglen > &columns
-    ppopts.wrap = true
-    ppopts.col = 1
-  else
-    ppopts.wrap = false
-    ppopts.col = d.col
-  endif
+  # if msglen > &columns
+  #   ppopts.wrap = true
+  #   ppopts.col = 1
+  # else
+  #   ppopts.wrap = false
+  #   ppopts.col = d.col
+  # endif
+
+  ppopts.wrap = v:true
+  ppopts.col = &columns
+  ppopts.border = [1, 1, 1, 1]
+  ppopts.borderchars = ['─', '│', '─', '│', '╭', '╮', '╯', '╰']
 
   popup_create(msg, ppopts)
 enddef
